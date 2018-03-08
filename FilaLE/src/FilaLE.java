@@ -1,5 +1,5 @@
 
-public class FilaArray implements Fila {
+public class FilaLE implements Fila {
 	private int i;
 	private int f;
 	private int fc;
@@ -7,7 +7,7 @@ public class FilaArray implements Fila {
 	public Object gotenks[];
 	
 	//CONSTRUTOR DO OBJETO
-	public FilaArray(int tamanho, int fc) {
+	public FilaLE(int tamanho, int fc) {
 		Fila = new Object[tamanho];
 		this.fc =fc;
 	}
@@ -47,12 +47,18 @@ public class FilaArray implements Fila {
 	}
 	
 	
-	public void enfileirar(Object o) {
+	public void enfileirar(No no) {
+		Object elemento = no.getElemento();
 		if(tamanho() == Fila.length -1) {
 			Fila = crescimento(fc);
 		}
-		Fila[f] = o;
+		Fila[f] = elemento;
 		f = (f +1)%Fila.length;
+		if (Fila[i] == Fila[0]) {
+			no.setElemento(null);
+		}else {
+			no.setProximo(Fila[f - 1]);
+		}
 	}
 
 	
@@ -67,6 +73,5 @@ public class FilaArray implements Fila {
 		}
 		return o;
 	}
-	
 	
 }

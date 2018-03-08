@@ -32,7 +32,7 @@ public class Main {
 		System.out.println("Digite o final da fila");
 		f = sc.nextInt();
 		
-		FilaArray fila = new FilaArray(tamanho, fc);
+		FilaLE fila = new FilaLE(tamanho, fc);
 		
 		int resposta = -1;
 		while(resposta != 0) {
