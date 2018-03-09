@@ -1,15 +1,19 @@
 
 public class FilaLE implements Fila {
 	private int i;
+	private int viajante;
 	private int f;
 	private int fc;
-	public Object Fila[];
+	public Object fila[];
 	public Object gotenks[];
 	
 	//CONSTRUTOR DO OBJETO
-	public FilaLE(int tamanho, int fc) {
-		Fila = new Object[tamanho];
+	public FilaLE(int tamanho, int fc, int i, int f) {
+		fila = new Object[tamanho];
+		this.i = i;
+		this.f = f;
 		this.fc =fc;
+		//this.viajante = i;
 	}
 	
 	//CRESCIMENTO DA FILA CHEIA
@@ -18,10 +22,10 @@ public class FilaLE implements Fila {
 			
 			if(fc == 0) {
 			gotenks = new Object[tamanho()*2];
-			gotenks[i] = Fila[i];
+			gotenks[i] = fila[i];
 			}else {
 				gotenks = new Object[tamanho() + fc];
-				gotenks[i] = Fila[i];
+				gotenks[i] = fila[i];
 			}
 		}
 		return gotenks;
@@ -29,7 +33,7 @@ public class FilaLE implements Fila {
 	
 	//VERIFICAR TAMANHO DA FILA
 	public int tamanho() {
-		return (Fila.length - i + f)%Fila.length;
+		return (fila.length - i + f)%fila.length;
 	}
 	
 	//VERIFICAR SE A FILA ESTÁ VAZIA
@@ -42,22 +46,23 @@ public class FilaLE implements Fila {
 		if(EstaVazia()) {
 			throw new EFilaVazia();
 		}else {
-			return Fila[i];
+			return fila[i];
 		}
 	}
 	
 	
 	public void enfileirar(No no) {
 		Object elemento = no.getElemento();
-		if(tamanho() == Fila.length -1) {
-			Fila = crescimento(fc);
+		if(tamanho() == fila.length -1) {
+			fila = crescimento(fc);
 		}
-		Fila[f] = elemento;
-		f = (f +1)%Fila.length;
-		if (Fila[i] == Fila[0]) {
-			no.setElemento(null);
+		f = (f +1)%fila.length;
+		fila[++f] = elemento;
+		if (viajante == 0) {
+			no.setProximo(null);
+			//viajante++;
 		}else {
-			no.setProximo(Fila[f - 1]);
+			no.setProximo(fila[f - 1]);
 		}
 	}
 
@@ -68,8 +73,8 @@ public class FilaLE implements Fila {
 		if(EstaVazia()) {
 			throw new EFilaVazia();
 		}else {
-			i = (i+1)%Fila.length;
-			o = Fila[i];
+			i = (i+1)%fila.length;
+			o = fila[i];
 		}
 		return o;
 	}

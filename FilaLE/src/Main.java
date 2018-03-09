@@ -22,6 +22,7 @@ public class Main {
 		int f;
 		Object elemento = null;
 		Scanner sc = new Scanner(System.in);
+		No no = new No();
 		
 		System.out.println("Digite o tamanho da fila:");
 		tamanho = sc.nextInt();
@@ -32,7 +33,7 @@ public class Main {
 		System.out.println("Digite o final da fila");
 		f = sc.nextInt();
 		
-		FilaLE fila = new FilaLE(tamanho, fc);
+		FilaLE fila = new FilaLE(tamanho, fc, i, f);
 		
 		int resposta = -1;
 		while(resposta != 0) {
@@ -43,7 +44,9 @@ public class Main {
 				case 1:
 					System.out.print("ADICIONAR: ");
                     elemento = sc.next();
-                    fila.enfileirar(elemento);
+                    no.setElemento(elemento);
+                    System.out.println(no.getElemento());
+                    System.out.println(no.getProximo());
                     
                     break;
                 
@@ -69,7 +72,7 @@ public class Main {
                 
                 case 4:
                     int qtdElementos = fila.tamanho();
-                    System.out.println("Voc� tem "+qtdElementos+" na pilha!");
+                    System.out.println("Voc� tem "+qtdElementos+" na fila!");
                     break;
                 
                 case 5:
