@@ -1,82 +1,58 @@
 
 public class FilaLE implements Fila {
-	private int i;
-	private int viajante;
-	private int f;
-	private int fc;
-	public Object fila[];
-	public Object gotenks[];
 	
-	//CONSTRUTOR DO OBJETO
-	public FilaLE(int tamanho, int fc, int i, int f) {
-		fila = new Object[tamanho];
-		this.i = i;
-		this.f = f;
-		this.fc =fc;
-		//this.viajante = i;
+	private int tamanho;
+	private No inicio;
+	private No fim;
+
+	//CONSTRUTOR
+	public FilaLE() {
+		inicio = null;
+		fim = null;
+		tamanho = 0;
 	}
 	
-	//CRESCIMENTO DA FILA CHEIA
-	public Object[] crescimento(int fc) {
-		for (int i = 0; i < tamanho(); i++) {
-			
-			if(fc == 0) {
-			gotenks = new Object[tamanho()*2];
-			gotenks[i] = fila[i];
-			}else {
-				gotenks = new Object[tamanho() + fc];
-				gotenks[i] = fila[i];
-			}
-		}
-		return gotenks;
-	}
-	
-	//VERIFICAR TAMANHO DA FILA
+	//RETORNA O TAMANHO
 	public int tamanho() {
-		return (fila.length - i + f)%fila.length;
+		return tamanho;
 	}
-	
-	//VERIFICAR SE A FILA ESTÁ VAZIA
+
+	//INDICA SE ESTÁ VAZIA
 	public boolean EstaVazia() {
-		return (i == f);
+		return inicio == null;
 	}
 
-	//VERIFICAR O INICIO DA FILA
+	//RETORNA O INICIO
 	public Object inicio() throws EFilaVazia {
-		if(EstaVazia()) {
+		if(inicio == null) {
 			throw new EFilaVazia();
 		}else {
-			return fila[i];
-		}
-	}
-	
-	
-	public void enfileirar(No no) {
-		Object elemento = no.getElemento();
-		if(tamanho() == fila.length -1) {
-			fila = crescimento(fc);
-		}
-		f = (f +1)%fila.length;
-		fila[++f] = elemento;
-		if (viajante == 0) {
-			no.setProximo(null);
-			//viajante++;
-		}else {
-			no.setProximo(fila[f - 1]);
+			return inicio.getElemento();
 		}
 	}
 
-	
+	//ADD UM ELEMENTO
+	public void enfileirar(Object elemento) {
+		if(inicio == null) {
+			inicio = new No(elemento, null);
+			fim = inicio;
+		}else {
+			No no = new No(elemento, null);
+			fim.setProximo(no);
+			fim = no;
+			tamanho++;
+		}
+	}
+
+	//REMOVE UM ELEMENTO
 	public Object desenfileirar() throws EFilaVazia {
-		Object o;
-		
-		if(EstaVazia()) {
+		No começo = inicio;
+		if(começo == null) {
 			throw new EFilaVazia();
 		}else {
-			i = (i+1)%fila.length;
-			o = fila[i];
+			inicio = inicio.getProximo();
+			tamanho--;
+			return começo.getElemento();
 		}
-		return o;
 	}
-	
 }
