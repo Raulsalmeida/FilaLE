@@ -36,6 +36,7 @@ public class FilaLE implements Fila {
 		if(inicio == null) {
 			inicio = new No(elemento, null);
 			fim = inicio;
+			tamanho++;
 		}else {
 			No no = new No(elemento, null);
 			fim.setProximo(no);
